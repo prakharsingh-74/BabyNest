@@ -118,7 +118,7 @@ end
 %% LOCAL DATABASE
 subgraph LocalDB
     G[SQLite Database]
-    H[Learning Data]
+    H[Learning Data: progress tracking, weak topics, etc.]
 
     G --> H
 end
