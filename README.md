@@ -135,7 +135,7 @@ end
 
 %% EXTERNAL LLM
 subgraph ExternalLLM
-    L[Free Tier API ]
+    L[Free Tier API]
 end
 
 %% CONNECTIONS
@@ -144,9 +144,7 @@ D --> G
 F --> I
 F --> K
 K --> L
-K --> M
 L --> B
-M --> B
 C --> G
 ```
 
