@@ -135,8 +135,7 @@ end
 
 %% EXTERNAL LLM
 subgraph ExternalLLM
-    L[Gemini API Free Tier]
-    M[Other API Providers Optional]
+    L[Free Tier API ]
 end
 
 %% CONNECTIONS
