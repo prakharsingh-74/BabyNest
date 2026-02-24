@@ -95,22 +95,18 @@ This diagram illustrates the architecture of BabyNest.
 ```mermaid
 graph TD
 
-%% =========================
-%% FRONTEND LAYER
-%% =========================
-subgraph Frontend["Frontend - React Native (Expo)"]
+%% FRONTEND
+subgraph Frontend
     A[Novel AI Learning App]
     B[Chatbot UI]
-    C[Local Storage - SQLite]
+    C[Local Storage SQLite]
 
     A --> B
     A --> C
 end
 
-%% =========================
-%% BACKEND LAYER
-%% =========================
-subgraph Backend["Backend - FastAPI"]
+%% BACKEND
+subgraph Backend
     D[API Routes]
     E[Learning Logic Engine]
     F[RAG Pipeline]
@@ -119,41 +115,31 @@ subgraph Backend["Backend - FastAPI"]
     E --> F
 end
 
-%% =========================
 %% LOCAL DATABASE
-%% =========================
-subgraph LocalDB["Local Database"]
-    G[SQLite]
-    H[Learning Data:
-    Progress, Attempts,
-    Weak Topics, History]
+subgraph LocalDB
+    G[SQLite Database]
+    H[Learning Data]
 
     G --> H
 end
 
-%% =========================
 %% RAG LAYER
-%% =========================
-subgraph Retrieval["RAG Layer"]
+subgraph Retrieval
     I[Embedding Generator]
-    J[ChromaDB - Local Vector Index]
+    J[ChromaDB Vector Index]
     K[Context Retriever]
 
     I --> J
     J --> K
 end
 
-%% =========================
-%% EXTERNAL INFERENCE
-%% =========================
-subgraph ExternalLLM["External LLM (BYOK)"]
-    L[Gemini API - Free Tier]
-    M[Other API Providers (Optional)]
+%% EXTERNAL LLM
+subgraph ExternalLLM
+    L[Gemini API Free Tier]
+    M[Other API Providers Optional]
 end
 
-%% =========================
 %% CONNECTIONS
-%% =========================
 A --> D
 D --> G
 F --> I
