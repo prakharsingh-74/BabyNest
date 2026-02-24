@@ -93,33 +93,76 @@
 This diagram illustrates the architecture of BabyNest.
 
 ```mermaid
-graph TD;
-    %% Frontend in React Native
-    subgraph Frontend["Frontend (React Native)"]
-        D[BabyNest App] -->|Uses| E[react-native-sqlite-storage]
-        D -->|Interacts with| F[Chatbot]
-    end
+graph TD
 
-    %% Local Storage (SQLite)
-    subgraph Database["Local Database (SQLite)"]
-        B[SQLite] -->|Stores & Retrieves| C[Appointments, Tasks, Due Date, Location]
-    end
+%% =========================
+%% FRONTEND LAYER
+%% =========================
+subgraph Frontend["Frontend - React Native (Expo)"]
+    A[Novel AI Learning App]
+    B[Chatbot UI]
+    C[Local Storage - SQLite]
 
-    %% Backend in Flask
-    subgraph Backend["Main Backend (Flask)"]
-        A[API Routes] -->|Syncs Data| B
-        A -->|Provides Data to| D
-    end
-    
-    %% LLM Agents & AI Processing
-    subgraph AI["LLM Agents & AI Processing"]
-        G[Local llm give response] -->|Indexes Data| H[ChromaDB]
-    end
+    A --> B
+    A --> C
+end
 
-    %% Connections Between Components
-    D -->|Reads & Writes Data| B
-    A -->|Can Query AI Offline| G
-    H -->|Provides Faster Query Results| F
+%% =========================
+%% BACKEND LAYER
+%% =========================
+subgraph Backend["Backend - FastAPI"]
+    D[API Routes]
+    E[Learning Logic Engine]
+    F[RAG Pipeline]
+
+    D --> E
+    E --> F
+end
+
+%% =========================
+%% LOCAL DATABASE
+%% =========================
+subgraph LocalDB["Local Database"]
+    G[SQLite]
+    H[Learning Data:
+    Progress, Attempts,
+    Weak Topics, History]
+
+    G --> H
+end
+
+%% =========================
+%% RAG LAYER
+%% =========================
+subgraph Retrieval["RAG Layer"]
+    I[Embedding Generator]
+    J[ChromaDB - Local Vector Index]
+    K[Context Retriever]
+
+    I --> J
+    J --> K
+end
+
+%% =========================
+%% EXTERNAL INFERENCE
+%% =========================
+subgraph ExternalLLM["External LLM (BYOK)"]
+    L[Gemini API - Free Tier]
+    M[Other API Providers (Optional)]
+end
+
+%% =========================
+%% CONNECTIONS
+%% =========================
+A --> D
+D --> G
+F --> I
+F --> K
+K --> L
+K --> M
+L --> B
+M --> B
+C --> G
 ```
 
 ## Contributing
